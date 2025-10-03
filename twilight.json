@@ -1041,7 +1041,7 @@
                     "selected": [],
                     "options": [],
                     "source": "Products",
-                    "multichoice": false,
+                    "multichoice": true,
                     "searchable": true,
                     "required": true,
                     "value": [],
