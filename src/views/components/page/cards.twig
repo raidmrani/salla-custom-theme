@@ -1,87 +1,18 @@
-{# ======================== DEBUG: قسم تتبّع كامل ======================== #}
-<section class="products-from-category debug-mode" style="border:2px dashed #999;padding:16px;margin:16px 0">
-  <h2>🛠️ Debug — منتجات من تصنيف</h2>
+<section class="selected-products">
+  <h2>منتجات مختارة يدويًا</h2>
 
-  {# 1) اطبع قيمة component.card خام عشان نشوف شكلها الحقيقي #}
-  <h3>1) Raw component.card</h3>
-  <pre style="background:#f6f6f6;padding:10px;white-space:pre-wrap">{{ component.card | json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
-
-  {# 2) تأكيد: هل card موجود؟ هل هو مصفوفة؟ هل فيها عنصر أول؟ #}
-  <h3>2) Checks</h3>
-  <ul>
-    <li>card موجود؟ → {{ component.card is defined ? 'نعم' : 'لا' }}</li>
-    <li>card قابل للتكرار؟ → {{ component.card is iterable ? 'نعم' : 'لا' }}</li>
-    <li>card طولها: {{ component.card is iterable ? component.card|length : 'N/A' }}</li>
-  </ul>
-
-  {# 3) إن وُجد عنصر أول، عرّفه كـ category واطبع قيمه الأساسية #}
-  {% if component.card is defined and component.card is iterable and component.card|length > 0 and component.card[0] is defined %}
-    {% set category = component.card[0] %}
-    <h3>3) Selected Category</h3>
-    <ul>
-      <li>ID: {{ category.id is defined ? category.id : 'غير موجود' }}</li>
-      <li>Name: {{ category.name is defined ? category.name : 'غير موجود' }}</li>
-      <li>Has URL? {{ category.url is defined ? 'نعم' : 'لا' }}</li>
-    </ul>
-
-    {# 4) اختبار A: نجرّب category.id كما هو (الأكثر منطقية) #}
-    <div style="border-top:1px solid #ddd;margin:12px 0"></div>
-    <h3>4-A) Test A — باستخدام category.id = {{ category.id }}</h3>
-    <salla-products category-id="{{ category.id }}" limit="8">
-      <p>داخل Test A → products معرّفة؟ {{ products is defined ? 'نعم' : 'لا' }}</p>
-      <p>داخل Test A → عدد products: {{ products is defined ? (products|length) : 'N/A' }}</p>
-
-      {% if products is defined and products|length > 0 %}
-        <ul>
-          {% for product in products %}
-            <li>#{{ loop.index }} — {{ product.id }} — {{ product.name }}</li>
-          {% endfor %}
-        </ul>
-      {% else %}
-        <p style="color: orange;">⚠️ Test A: لا توجد منتجات (أو الـ binding ما اشتغل).</p>
-      {% endif %}
-    </salla-products>
-
-    {# 5) اختبار B: نحاول تمرير الـ ID كنص (أحيانًا يساعد بالتحويل) #}
-    <div style="border-top:1px solid #ddd;margin:12px 0"></div>
-    <h3>4-B) Test B — تمرير ID كنص</h3>
-    {% set category_id_str = category.id ~ '' %}
-    <p>category_id_str = "{{ category_id_str }}" (نوعه: نص)</p>
-    <salla-products category-id="{{ category_id_str }}" limit="4">
-      <p>داخل Test B → products معرّفة؟ {{ products is defined ? 'نعم' : 'لا' }}</p>
-      <p>داخل Test B → عدد products: {{ products is defined ? (products|length) : 'N/A' }}</p>
-
-      {% if products is defined and products|length > 0 %}
-        <ul>
-          {% for product in products %}
-            <li>#{{ loop.index }} — {{ product.id }} — {{ product.name }}</li>
-          {% endfor %}
-        </ul>
-      {% else %}
-        <p style="color: orange;">⚠️ Test B: لا توجد منتجات.</p>
-      {% endif %}
-    </salla-products>
-
-    {# 6) اختبار C: بدون أي فلترة — فقط للتأكد إن <salla-products> نفسه يشتغل في هذا المكان #}
-    <div style="border-top:1px solid #ddd;margin:12px 0"></div>
-    <h3>4-C) Test C — بدون فلترة (limit=3)</h3>
-    <salla-products limit="3">
-      <p>داخل Test C → products معرّفة؟ {{ products is defined ? 'نعم' : 'لا' }}</p>
-      <p>داخل Test C → عدد products: {{ products is defined ? (products|length) : 'N/A' }}</p>
-
-      {% if products is defined and products|length > 0 %}
-        <ul>
-          {% for product in products %}
-            <li>#{{ loop.index }} — {{ product.id }} — {{ product.name }}</li>
-          {% endfor %}
-        </ul>
-      {% else %}
-        <p style="color: orange;">⚠️ Test C: حتى بدون فلترة ما طلع شيء → احتمال المشكلة في هذا الموضع/القسم نفسه.</p>
-      {% endif %}
-    </salla-products>
-
+  {% if component.card is iterable and component.card|length > 0 %}
+    <div class="product-grid">
+      {% for product in component.card %}
+        <div class="product-card">
+          <img src="{{ product.image }}" alt="{{ product.name }}">
+          <h3>{{ product.name }}</h3>
+          <p>{{ product.price.formatted }}</p>
+          <salla-add-product-button product-id="{{ product.id }}" />
+        </div>
+      {% endfor %}
+    </div>
   {% else %}
-    <p style="color:red">❌ لا يوجد عنصر أول داخل component.card — راجع إعداد اختيار التصنيف.</p>
+    <p>لم يتم اختيار أي منتجات بعد.</p>
   {% endif %}
 </section>
-{# ===================== END DEBUG ===================== #}
