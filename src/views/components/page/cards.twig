@@ -1,9 +1,7 @@
-<section class="product-cards">
-  <h2>منتجات التصنيف المختار</h2>
+<section class="products-from-category">
+  <h2>منتجات من تصنيف: {{ component.card.name }}</h2>
 
-  {% if component.card %}
-    <p>تم اختيار التصنيف: {{ component.card.name }}</p>
-
+  {% if component.card and component.card.id %}
     <salla-products category-id="{{ component.card.id }}" limit="8">
       {% for product in products %}
         <div class="product-card">
@@ -14,8 +12,7 @@
         </div>
       {% endfor %}
     </salla-products>
-
   {% else %}
-    <p>يرجى اختيار تصنيف من إعدادات المكوّن.</p>
+    <p>لم يتم اختيار أي تصنيف بعد.</p>
   {% endif %}
 </section>
