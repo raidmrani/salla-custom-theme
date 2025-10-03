@@ -1,0 +1,21 @@
+<section class="product-cards">
+  <h2>منتجات التصنيف المختار</h2>
+
+  {% if component.card %}
+    <p>تم اختيار التصنيف: {{ component.card.name }}</p>
+
+    <salla-products category-id="{{ component.card.id }}" limit="8">
+      {% for product in products %}
+        <div class="product-card">
+          <img src="{{ product.image }}" alt="{{ product.name }}">
+          <h3>{{ product.name }}</h3>
+          <p>{{ product.price.formatted }}</p>
+          <salla-add-product-button product-id="{{ product.id }}" />
+        </div>
+      {% endfor %}
+    </salla-products>
+
+  {% else %}
+    <p>يرجى اختيار تصنيف من إعدادات المكوّن.</p>
+  {% endif %}
+</section>
