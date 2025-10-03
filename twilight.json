@@ -1046,6 +1046,22 @@
                     "required": true,
                     "value": [],
                     "public": true
+                },
+                {
+                    "id": "list",
+                    "type": "items",
+                    "format": "dropdown-list",
+                    "label": "List",
+                    "description": null,
+                    "labelHTML": null,
+                    "icon": "sicon-keyboard_arrow_down",
+                    "selected": [],
+                    "options": [],
+                    "source": "Categories",
+                    "multichoice": false,
+                    "searchable": true,
+                    "required": false,
+                    "value": []
                 }
             ]
         }
