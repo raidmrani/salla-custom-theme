@@ -1,23 +1,5 @@
-{# ✅ اختبار تحميل المكوّن #}
-<div style="background:#eef8ff;padding:10px;border-left:4px solid #0095ff;">
-  ✅ cards.twig تم تحميله بنجاح (source = Products)
-</div>
-
-<section class="selected-products">
-  <h2>منتجات مختارة يدويًا</h2>
-
-  {% if component.card is iterable and component.card|length > 0 %}
-    <div class="product-grid">
-      {% for product in component.card %}
-        <div class="product-card">
-          <img src="{{ product.image }}" alt="{{ product.name }}">
-          <h3>{{ product.name }}</h3>
-          <p>{{ product.price.formatted }}</p>
-          <salla-add-product-button product-id="{{ product.id }}" />
-        </div>
-      {% endfor %}
-    </div>
-  {% else %}
-    <p style="color: red;">⚠️ لم يتم اختيار أي منتجات بعد.</p>
-  {% endif %}
+<section class="product-slider-section">
+  {% for product in component.card %}
+  <div>{{ product.name }}</div>
+{% endfor %}
 </section>
