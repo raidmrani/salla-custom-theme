@@ -1043,8 +1043,9 @@
                     "source": "Categories",
                     "multichoice": false,
                     "searchable": true,
-                    "required": false,
-                    "value": []
+                    "required": true,
+                    "value": [],
+                    "public": true
                 }
             ]
         }
