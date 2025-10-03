@@ -1,3 +1,8 @@
+{# ✅ اختبار تحميل المكوّن #}
+<div style="background:#eef8ff;padding:10px;border-left:4px solid #0095ff;">
+  ✅ cards.twig تم تحميله بنجاح (source = Products)
+</div>
+
 <section class="selected-products">
   <h2>منتجات مختارة يدويًا</h2>
 
@@ -13,6 +18,6 @@
       {% endfor %}
     </div>
   {% else %}
-    <p>لم يتم اختيار أي منتجات بعد.</p>
+    <p style="color: red;">⚠️ لم يتم اختيار أي منتجات بعد.</p>
   {% endif %}
 </section>
