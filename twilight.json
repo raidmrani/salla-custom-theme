@@ -1031,37 +1031,31 @@
             "path": "page.cards",
             "fields": [
                 {
-                    "id": "card",
-                    "type": "items",
-                    "format": "dropdown-list",
-                    "label": "Card",
-                    "description": "ادخل التصنيف المرغوب",
-                    "labelHTML": null,
-                    "icon": "sicon-keyboard_arrow_down",
-                    "selected": [],
-                    "options": [],
-                    "source": "Products",
-                    "multichoice": true,
-                    "searchable": true,
-                    "required": true,
-                    "value": [],
-                    "public": true
-                },
-                {
-                    "id": "list",
-                    "type": "items",
-                    "format": "dropdown-list",
-                    "label": "List",
+                    "id": "collection",
+                    "type": "collection",
+                    "format": "collection",
+                    "label": "Collection",
                     "description": null,
                     "labelHTML": null,
-                    "icon": "sicon-keyboard_arrow_down",
-                    "selected": [],
-                    "options": [],
-                    "source": "Categories",
-                    "multichoice": false,
-                    "searchable": true,
-                    "required": false,
-                    "value": []
+                    "item_label": null,
+                    "icon": "sicon-list-add",
+                    "fields": [
+                        {
+                            "id": "collection.color",
+                            "type": "string",
+                            "format": "color",
+                            "inputType": "color",
+                            "label": "Color",
+                            "description": null,
+                            "labelHTML": null,
+                            "icon": "sicon-format-fill",
+                            "value": "#004956",
+                            "required": false
+                        }
+                    ],
+                    "value": [],
+                    "minLength": 1,
+                    "maxLength": 5
                 }
             ]
         }
