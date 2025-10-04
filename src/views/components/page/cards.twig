@@ -1,20 +1,105 @@
+ {#من ملف 
+ المشروع\twilight.json
+ 
+ {
+            "key": "22f85b21-0bc2-4736-a4e7-6dae93410d44",
+            "title": "كارد المنتجات",
+            "icon": "sicon-store",
+            "path": "page.cards",
+            "fields": [
+                {
+                    "id": "card",
+                    "type": "items",
+                    "format": "dropdown-list",
+                    "label": "Card",
+                    "description": "ادخل التصنيف المرغوب",
+                    "labelHTML": null,
+                    "icon": "sicon-keyboard_arrow_down",
+                    "selected": [],
+                    "options": [],
+                    "source": "Products",
+                    "multichoice": true,
+                    "searchable": true,
+                    "required": true,
+                    "value": [],
+                    "public": true
+                },
+                {
+                    "id": "list",
+                    "type": "items",
+                    "format": "dropdown-list",
+                    "label": "List",
+                    "description": null,
+                    "labelHTML": null,
+                    "icon": "sicon-keyboard_arrow_down",
+                    "selected": [],
+                    "options": [],
+                    "source": "Categories",
+                    "multichoice": false,
+                    "searchable": true,
+                    "required": false,
+                    "value": []
+                }
+            ]
+        } #}
+
+
+{# من ملف 
+المشروع\src\views\components\page\cards.twig 
+#}
+
 <section class="product-slider-section">
  
+{# جلب اسماء المنتجات من تصنيف Products #}
+    {% for product in component.card %}
+        <div>{{ product.name }} </div>
+    {% endfor %}
 
-  {% for product in component.card %}
-  <div>{{ product.name }} </div>
-{% endfor %}
 
- {% for product in component.list %}
-  <div>{{ product.name }}</div>
-{% endfor %}
+{# جلب اسم التصنيفات من تصنيف Categories #}
+    {% for product in component.list %}
+        <div>{{ product.name }} </div>
+    {% endfor %} 
  
 
- 
 
+{# عرض قائمة المنتجات من التصنيفات من التصنيف المختار بتصميم سلة #}
+{% if component.list and component.list[0] and component.list[0].id %}
+  {% set category = component.list[0] %}
 
+  <salla-products-list
+    source="categories"
+    source-value="{{ category.id }}"
+    limit="8">
+  </salla-products-list>
 
+{% else %}
+  <p>⚠️ لم يتم اختيار أي تصنيف.</p>
+{% endif %}
 
+{# جلب بيانات المنتج وايضا هناك ملف يوضح كل مايخص class product #}
+{% for product in component.card %}
+  <div class="my-card">
+
+    <h3>{{ product.name }}</h3>
+    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+    <p>{{ product.price }}</p>     
+    <a href="{{ product.url }}" class="buy-now">شراء الآن</a>
+    
+    <div>
+        <salla-add-product-button product-id="{{ product.id }}" />
+    </div>
    
+
+   <div class="meta">
+      ⭐ {{ product.rating }} |
+      🛒 {{ product.sold }} عمليات شراء
+    </div>
+     {% if product.label %}
+      <span class="badge">{{ product.label }}</span>
+    {% endif %}
+  </div>
+{% endfor %}
+
 
 </section>
